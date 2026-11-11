@@ -1,0 +1,12 @@
+Job ID: 22805025
+Array Job ID: 22797836_90
+Cluster: shen
+User/Group: jpd5kh/users
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 2
+CPU Utilized: 00:00:11
+CPU Efficiency: 30.56% of 00:00:36 core-walltime
+Job Wall-clock time: 00:00:18
+Memory Utilized: 1.38 GB
+Memory Efficiency: 8.65% of 16.00 GB (16.00 GB/node)

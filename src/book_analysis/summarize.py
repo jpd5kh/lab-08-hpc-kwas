@@ -64,14 +64,76 @@ def summarize_book(text):
 
 def upload_summary(key, summary, genre, job):
     """Add the summary and genre to the document with _id key in gutenberg.books, and add a run."""
-    # TODO: Part 1, Step 1 of README.md
-    raise NotImplementedError("upload_summary")
+    client = MongoClient(os.environ["MONGODB_ATLAS_URL"], username=os.environ["MONGODB_ATLAS_USER"], password=os.environ["MONGODB_ATLAS_PWD"])
+    collection = client["gutenberg"]["books"]
+    try:
+        result = collection.update_one({"_id": key}, {
+            "$set": {
+                "llm_analysis": {
+                    "summary": summary,
+                    "genre": genre,
+                    "model": MODEL,
+                    "at": datetime.now(timezone.utc)
+                }
+            },
+            "$push": {
+	        "runs": {
+                    "host": socket.gethostname(),
+                    "at": datetime.now(timezone.utc),
+                    "job": job
+                }
+            }
+         } )
+        if result.matched_count == 0:
+            logger.warning(f"Book {key} not found")
+    except PyMongoError as e:
+        logger.error(f"Error adding summary and genre for book {key} to Mongo DB: {e}")
+        raise
+    finally:
+        client.close()
 
 
 def main():
     """Summarize book number TASK_ID of BOOK_LIST and save the result in MongoDB."""
-    # TODO: Part 1, Step 1 of README.md
-    raise NotImplementedError("main")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    if len(sys.argv) != 3:
+        logger.error(f"Usage: summarize.py BOOK_LIST TASK_ID")
+        sys.exit(1)
+    try:
+        list_file = sys.argv[1]
+        task_id  = int(sys.argv[2])
+    except ValueError as e:
+        logger.error(f"TASK_ID must be an integer")
+        sys.exit(1)
+    with open(list_file, "r") as f:
+        lines = f.readlines()
+        lines = lines[1:]
+        lines = [line for line in lines if line.strip()]
+    if task_id > len(lines) or task_id < 1:
+        logger.error(f"TASK_ID must be between 1 and {len(lines)}")
+        sys.exit(1)
+    path = lines[task_id - 1].strip("\n")
+    if not os.path.isfile(path):
+        logger.error(f"{path} doesn't exist")
+        sys.exit(1)
+    logger.info(f"Task {task_id}: {path}")
+    with open(path, "r") as f:
+        book_text = f.read()
+    start_time = time.time()
+    summary, genre = summarize_book(book_text)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    logger.info(f"Elapsed time: {elapsed_time:.2f}")
+    key = os.path.basename(path)
+    logger.info(f"Book {key}, genre: {genre}, elapsed time: {elapsed_time:.2f}")
+    job_id = os.environ.get("SLURM_ARRAY_JOB_ID")
+    slurm_task_id = os.environ.get("SLURM_ARRAY_TASK_ID")
+    if job_id and slurm_task_id:
+        job = f"{job_id}_{slurm_task_id}"
+    else:
+        job = None
+    upload_summary(key, summary, genre, job)
+    print(f"Summarized {key} in {elapsed_time:.1f} s on {socket.gethostname()}")
 
 
 if __name__ == "__main__":

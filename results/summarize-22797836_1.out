@@ -1,0 +1,7 @@
+BOOK_LIST=book_list.txt TASK_ID=1
+INFO Task 1: /sfs/weka/scratch/jpd5kh/books/pg1013.txt
+INFO Running Qwen/Qwen2.5-1.5B-Instruct on cuda
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]Loading weights: 100%|██████████| 338/338 [00:00<00:00, 32361.09it/s]
+INFO Elapsed time: 4.70
+INFO Book pg1013.txt, genre: science fiction, elapsed time: 4.70
+Summarized pg1013.txt in 4.7 s on udc-aw37-1

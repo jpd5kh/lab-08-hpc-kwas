@@ -1,0 +1,85 @@
+{
+  "documents": 101,
+  "summarized": 101,
+  "runs_by_job": [
+    {
+      "_id": "22797485",
+      "books": 1
+    },
+    {
+      "_id": "22797615",
+      "books": 1
+    },
+    {
+      "_id": "22797836",
+      "books": 101
+    }
+  ],
+  "genres": [
+    {
+      "_id": "historical fiction",
+      "books": 29
+    },
+    {
+      "_id": "adventure",
+      "books": 21
+    },
+    {
+      "_id": "mystery",
+      "books": 16
+    },
+    {
+      "_id": "children's story",
+      "books": 11
+    },
+    {
+      "_id": "romance",
+      "books": 8
+    },
+    {
+      "_id": "drama",
+      "books": 7
+    },
+    {
+      "_id": "science fiction",
+      "books": 6
+    },
+    {
+      "_id": "horror",
+      "books": 2
+    },
+    {
+      "_id": "unknown",
+      "books": 1
+    }
+  ],
+  "last_summarized": [
+    {
+      "_id": "pg863.txt",
+      "author": "Agatha Christie",
+      "title": "The Mysterious Affair at Styles",
+      "llm_analysis": {
+        "summary": "The novel revolves around the mysterious death of Mrs. Inglethorp at Styles Court, where John Cavendish lives. Poirot investigates the case, revealing that Mrs. Inglethorp was poisoned with strychnine. The plot includes a confrontation with Alfred Inglethorp, a complex web of relationships, and a twist ending.",
+        "genre": "mystery"
+      }
+    },
+    {
+      "_id": "pg996.txt",
+      "author": "Miguel de Cervantes Saavedra",
+      "title": "Don Quixote",
+      "llm_analysis": {
+        "summary": "Cervantes, a humble soldier, experiences a profound transformation when he decides to pursue literature despite his impoverished state. He begins writing \"Don Quixote,\" a comedic and philosophical novel that ridicules outdated chivalric ideals and explores themes of disillusionment and redemption.",
+        "genre": "historical fiction"
+      }
+    },
+    {
+      "_id": "pg844.txt",
+      "author": "Oscar Wilde",
+      "title": "The Importance of Being Earnest: A Trivial Comedy for Serious People",
+      "llm_analysis": {
+        "summary": "John Worthing, J.P., meets Algernon Moncrieff, who claims to be his brother Ernest. Later, Algernon proposes to Cecily Cardew, unaware that she is actually his ward. Jack and Algernon discover the deception and confront their uncle.",
+        "genre": "drama"
+      }
+    }
+  ]
+}
